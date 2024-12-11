@@ -1,0 +1,123 @@
+/* recordar que estamos disenando con mobile first */
+/* banner */
+.banner{
+    display: grid;
+    gap: 1rem;
+}
+
+/* posicionando los elementos del banner segun la linea de la columna y fila segun corresponda su propiedad*/
+.banner img:nth-child(1){
+    grid-column: 1/3;
+}
+
+.banner img:nth-child(4){
+    grid-column: 2/3;
+    grid-row: 2/4;
+}
+
+/* tarjeta eventos */
+.eventos__item{
+    display: grid;
+    grid-template-columns: 1fr auto; 
+    /* auto para la primera fila, repide dos veces para las otras dos filas que son de 1fr y la ultima es auto */
+    grid-template-rows: auto repeat(2, 1fr) auto;
+    /* forma distinto de realizar la distribucion de elementos
+    con dos columnas y sus respectivas filas */
+    grid-template-areas: 
+    "imagen imagen"
+    "nombre nombre"
+    "fecha fecha"
+    "lugar boton";
+}
+
+/* se une la distribucion anterior con sus elementos */
+.eventos__item img{
+    grid-area: imagen;
+}
+
+.eventos__item h3{
+    grid-area: nombre;
+    align-self: center;
+}
+
+.eventos__item h4{
+    grid-area: fecha;
+}
+
+.eventos__item h5{
+    grid-area: lugar;
+    align-self: end;
+}
+
+.eventos__item button{
+    grid-area: boton;
+}
+
+/* tarjeta agenda */
+.agenda__item{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-row: auto 1fr;
+}
+
+.agenda__item img{
+    grid-column: 1/3;
+}
+
+/* tablet */
+@media(min-width: 720px){
+    /* banner */
+    .banner img:nth-child(1){
+        grid-area: 1/1/3/2; /*recordar que esto resume las dos propiedades de abajo
+        solo que es Fila inicial, columna inicial, fila final, columan final*/
+        /* grid-column: 1/2;
+        grid-row: 1/3; */
+    }
+    
+    .banner img:nth-child(4){
+        grid-area: 1/3/3/4;
+        /* grid-column: 3/4;
+        grid-row: 1/3; */
+    }
+
+    .banner{
+        /* calc para hacer calculos en css */
+        /* 50% DE LAS COLUMNAS - EL 0.75 rem */
+        /* si se quita el 0.75 rem la columna seria del 50% del contenedor */
+        grid-template-columns: calc(50% - 0.75rem); /*auto auto;*/ /*quitamos auto porque por defecto cuando solo va un valor es para la primera columna*/
+        /* ojo, esto aplica porque es para la primera columna que va ese calculo, si fuera para la segunda seria auto calc
+        o si fuera para la tercera seria auto auto calc */
+        /* Si el valor auto es un antecesor del otro valor que se está aplicando, deberá estar declarado */
+        column-gap: 1.5rem; 
+    }
+}
+
+@media(min-width: 1440px){
+    .categorias{
+        display: grid;
+        grid-template-columns: calc(50% - 0.75rem);
+        grid-template-rows: auto 1fr auto;
+        gap: 1rem 1.5rem;
+        grid-template-areas: 
+        "titulo titulo"
+        "lista destaques"
+        "lista imagen";
+    }
+
+    .categorias__titulo{
+        grid-area: titulo;
+    }
+
+    .categorias__lista{
+        grid-area: lista;
+    }
+
+    .categorias__destaques{
+        grid-area: destaques;
+    }
+
+    .categorias__imagen{
+        grid-area: imagen;
+    }
+
+}
